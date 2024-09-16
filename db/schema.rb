@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_09_13_164444) do
+ActiveRecord::Schema[7.2].define(version: 2024_09_16_123515) do
   create_table "transactions", force: :cascade do |t|
     t.decimal "amount"
     t.integer "transaction_type"
@@ -27,6 +27,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_09_13_164444) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "balance", default: "0.0"
   end
 
   add_foreign_key "transactions", "users"

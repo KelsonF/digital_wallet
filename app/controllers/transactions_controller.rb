@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   include JSONAPI::Errors
 
   def index
-    transactions = Transaction.ransack(params[:q]).result.page(params[:page]).per(25)
+    transactions = Current.user.transactions.ransack(params[:q]).result.page(params[:page]).per(25)
     render jsonapi: transactions, status: :ok
   end
 
@@ -13,7 +13,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = Current.user.transactions.new(transaction_params)
 
     if @transaction.save
       render jsonapi: @transaction, status: :created
@@ -22,10 +22,15 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def balance
+    balance = Current.user.balance
+    render jsonapi: balance
+  end
+
   private
 
   def set_transaction
-    @transaction = Transaction.find(params[:id])
+    @transaction = Current.user.transactions.find(params[:id])
   end
 
   def transaction_params

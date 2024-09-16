@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   def authorize_request
     token = request.headers["Authorization"]
     decoded_token = AuthService.decode(token)
-    @current_user = User.find(decoded_token["user_id"])
+    Current.user = User.find(decoded_token["user_id"])
   rescue
     render json: { error: "Not Authorized" }, status: :unauthorized
   end
