@@ -3,12 +3,12 @@
 one:
   name: John Doe
   email: john@example.com
-  password_digest: <%= User.digest('password') %>  # Assuming you're using bcrypt for password hashing
+  password_digest: <%= BCrypt::Password.create('password123') %>
   balance: 1000.0  # Assuming the User model has a balance attribute
 
 two:
   name: Jane Smith
   email: jane@example.com
-  password_digest: <%= User.digest('password') %>
+  password_digest: <%= BCrypt::Password.create('password123') %>
   balance: 500.0
 
