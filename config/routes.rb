@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   resources :transactions
+  get "transactions/balance", to: "transactions#balance"
 
   post "/login", to: "sessions#create"
   post "/register", to: "registration#create"

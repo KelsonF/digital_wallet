@@ -4,7 +4,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:one) # Ensure you have a valid user fixture
     @transaction = transactions(:one) # Ensure you have a valid transaction fixture
-    @valid_attributes = { amount: 100.0, transaction_type: "credit", description: "Test Transaction" }
+    @valid_attributes = { amount: 100.0, transaction_type: "deposit", description: "Test Transaction" }
     @token = AuthService.encode(user_id: @user.id) # Use AuthService to generate JWT token
   end
 
@@ -17,7 +17,7 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
 
   # Test the show action
   test "should show transaction" do
-    get transaction_url(@transaction), headers: { Authorization: "Bearer #{@token}" }
+    get transactions_url(@transaction), headers: { Authorization: "Bearer #{@token}" }
     assert_response :success
     assert_equal @transaction.id, json_response["data"]["id"]
   end
@@ -32,15 +32,17 @@ class TransactionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create transaction with invalid attributes" do
+    invalid_attributes = { amount: nil, transaction_type: "deposit" } # Missing required attributes
     assert_no_difference("Transaction.count") do
-      post transactions_url, params: { transaction: { amount: nil, transaction_type: "credit" } }, headers: { Authorization: "Bearer #{@token}" }
+      post transactions_url, params: { transaction: invalid_attributes }, headers: { Authorization: "Bearer #{@token}" }
     end
     assert_response :unprocessable_entity
   end
 
+
   # Test the balance action
   test "should get balance" do
-    get balance_transactions_url, headers: { Authorization: "Bearer #{@token}" }
+    get "/transactions/balance", headers: { Authorization: "Bearer #{@token}" }
     assert_response :success
     assert_equal @user.balance, json_response["data"]
   end

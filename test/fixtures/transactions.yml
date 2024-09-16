@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  amount: 9.99
-  transaction_type: 1
+  amount: 100.0
+  transaction_type: deposit
+  description: "Test Transaction"
   user: one
 
 two:
-  amount: 9.99
-  transaction_type: 1
-  user: two
+  amount: 50.0
+  transaction_type: withdrawal
+  description: "Another Transaction"
+  user: one

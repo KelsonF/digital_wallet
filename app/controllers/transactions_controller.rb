@@ -23,8 +23,7 @@ class TransactionsController < ApplicationController
   end
 
   def balance
-    balance = Current.user.balance
-    render jsonapi: balance
+    render json: { balance: Current.user.balance }, status: :ok
   end
 
   private
