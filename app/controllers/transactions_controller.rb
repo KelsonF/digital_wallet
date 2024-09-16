@@ -1,15 +1,15 @@
 class TransactionsController < ApplicationController
-  before_action :set_transaction, only: [ :show, :update, :destroy ]
+  before_action :set_transaction, only: [ :show ]
 
-  include JSONAPI::Errors
+  # include JSONAPI::Errors
 
   def index
-    transactions = Current.user.transactions.ransack(params[:q]).result.page(params[:page]).per(25)
+    transactions = Current.user.transactions.ransack(params[:q] || {}).result.page(params[:page]).per(25)
     render jsonapi: transactions, status: :ok
   end
 
   def show
-    render jsonapi: @transaction
+    render jsonapi: @transaction, status: :ok
   end
 
   def create
@@ -18,7 +18,7 @@ class TransactionsController < ApplicationController
     if @transaction.save
       render jsonapi: @transaction, status: :created
     else
-      render jsonapi_errors: @transaction.errors, message: :unprocessable_entity
+      render jsonapi_errors: @transaction.errors, status: :unprocessable_entity
     end
   end
 
@@ -29,7 +29,10 @@ class TransactionsController < ApplicationController
   private
 
   def set_transaction
-    @transaction = Current.user.transactions.find(params[:id])
+    @transaction = Current.user.transactions.find_by(id: params[:id])
+    unless @transaction
+      render jsonapi_errors: { detail: "Transaction not found" }, status: :not_found
+    end
   end
 
   def transaction_params

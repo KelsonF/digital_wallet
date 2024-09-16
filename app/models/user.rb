@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true, on: :create
+  validates :balance, numericality: { greater_than_or_equal_to: 0 }
 end

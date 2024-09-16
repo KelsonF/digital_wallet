@@ -4,10 +4,9 @@ class ApplicationController < ActionController::API
   private
 
   def authorize_request
-    token = request.headers["Authorization"]
+    # Extrai o token do cabeçalho Authorization
+    token = request.headers["Authorization"]&.split(" ")[1]
     decoded_token = AuthService.decode(token)
     Current.user = User.find(decoded_token["user_id"])
-  rescue
-    render json: { error: "Not Authorized" }, status: :unauthorized
   end
 end

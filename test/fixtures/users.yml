@@ -4,7 +4,7 @@ one:
   name: John Doe
   email: john@example.com
   password_digest: <%= BCrypt::Password.create('password123') %>
-  balance: 1000.0  # Assuming the User model has a balance attribute
+  balance: 1000.0 
 
 two:
   name: Jane Smith
