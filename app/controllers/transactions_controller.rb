@@ -22,20 +22,6 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def update
-    if @transaction.update(transaction_params)
-      render jsonapi: @transaction
-    else
-      render jsonapi_errors: @transaction.errors, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @transaction.destroy
-    head :no_content
-  end
-
-
   private
 
   def set_transaction
