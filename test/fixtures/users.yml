@@ -1,11 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  email: MyString
-  password_digest: MyString
+  name: John Doe
+  email: john@example.com
+  password_digest: <%= User.digest('password') %>  # Assuming you're using bcrypt for password hashing
+  balance: 1000.0  # Assuming the User model has a balance attribute
 
 two:
-  name: MyString
-  email: MyString
-  password_digest: MyString
+  name: Jane Smith
+  email: jane@example.com
+  password_digest: <%= User.digest('password') %>
+  balance: 500.0
+
