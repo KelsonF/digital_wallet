@@ -46,6 +46,6 @@ gem "kaminari", "~> 1.2"
 gem "bcrypt", "~> 3.1"
 gem "jsonapi-serializer"
 
-gem "jwt", "~> 2.8"
+gem "jwt", "~> 2.9"
 
 gem "rswag", "~> 2.14"
