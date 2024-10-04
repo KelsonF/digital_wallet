@@ -48,4 +48,4 @@ gem "jsonapi-serializer"
 
 gem "jwt", "~> 2.8"
 
-gem "rswag", "~> 2.14"
+gem "rswag", "~> 2.15"
